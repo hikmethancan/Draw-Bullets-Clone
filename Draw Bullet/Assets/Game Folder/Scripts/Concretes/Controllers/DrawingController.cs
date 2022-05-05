@@ -25,36 +25,32 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
         private void Update()
         {
-            if (Input.touchCount > 0)
+            if (Input.touchCount <= 0) return;
+            _touch = Input.GetTouch(0);
+                
+                
+            if (_touch.phase == TouchPhase.Began )
             {
-                _touch = Input.GetTouch(0);
-                
-                
-                if (_touch.phase == TouchPhase.Began )
-                {
-                    _points.Clear();
-                }
+                _points.Clear();
+            }
 
-                if (_touch.phase == TouchPhase.Moved )
+            if (_touch.phase == TouchPhase.Moved )
+            {
+                var ray = Camera.main.ScreenPointToRay(_touch.position);
+                RaycastHit hitInfo;
+                if (Physics.Raycast(ray,out hitInfo))
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(_touch.position);
-                    RaycastHit hitInfo;
-                    if (Physics.Raycast(ray,out hitInfo))
+                    if (DistanceToLastPoint(hitInfo.point) > 1f)
                     {
-                        if (DistanceToLastPoint(hitInfo.point) > 1f)
-                        {
-                            _points.Add(hitInfo.point);
-                            _lineRenderer.positionCount = _points.Count;
-                            _lineRenderer.SetPositions(_points.ToArray());
-                        }
+                        _points.Add(hitInfo.point);
+                        _lineRenderer.positionCount = _points.Count;
+                        _lineRenderer.SetPositions(_points.ToArray());
                     }
                 }
-                else if (_touch.phase == TouchPhase.Ended )
-                {
-                    OnNewPathCreated(_points);
-                    var go =  Instantiate(bulletPrefab, _points.First(), bulletPrefab.transform.rotation);
-                    go.position += _points.Last();
-                }
+            }
+            else if (_touch.phase == TouchPhase.Ended )
+            {
+                OnNewPathCreated(_points);
             }
         }
 
