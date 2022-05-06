@@ -14,7 +14,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
         [Header("Bullet Prefab")] [SerializeField]
         private Transform bulletPrefab;
 
-        public Action<IEnumerable<Vector3>> OnNewPathCreated = delegate { };
+        public event Action<IEnumerable<Vector3>> OnNewPathCreated = delegate { };
         public bool isBulletSpawning;
 
         private LineRenderer _lineRenderer;
@@ -22,7 +22,8 @@ namespace Game_Folder.Scripts.Concretes.Controllers
         private Touch _touch;
         private Camera _camera;
         [FormerlySerializedAs("_layerMask")] public LayerMask layerMask;
-
+        
+         const float RESOLATION = .5f;
         private void Awake()
         {
             _lineRenderer = GetComponent<LineRenderer>();
@@ -48,15 +49,17 @@ namespace Game_Folder.Scripts.Concretes.Controllers
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100f, layerMask))
                 {
                     Vector3 newPoint = hitInfo.point;
-                    // (newPoint.y, newPoint.z) = (newPoint.z, newPoint.y);
+                    
                     var playerNewPos = new Vector3(Player.Instance.transform.position.x,
                         Player.Instance.transform.position.z, Player.Instance.transform.position.y);
                     
-                    newPoint = Player.Instance.transform.position - hitInfo.point ;
+                    newPoint = hitInfo.point - Player.Instance.transform.position ;
                     
-                    newPoint.z = 0.01f;
+                    // newPoint.z = 0.01f;
+                    newPoint.y = 0.01f;
+                    (newPoint.y, newPoint.z) = (newPoint.z, newPoint.y);
 
-                    if (DistanceToLastPoint(newPoint) > 1f)
+                    if (DistanceToLastPoint(newPoint) > RESOLATION)
                     {
                         points.Add(newPoint);
                         _lineRenderer.positionCount = points.Count;

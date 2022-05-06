@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,13 +15,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             _navMeshAgent = GetComponent<NavMeshAgent>();
             FindObjectOfType<DrawingController>().OnNewPathCreated += SetDestination;
         }
-
-        private void Start()
-        {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-            FindObjectOfType<DrawingController>().OnNewPathCreated += SetDestination;
-        }
-
+        
         private void SetDestination(IEnumerable<Vector3> points)
         {
             pathPoints = new Queue<Vector3>(points);

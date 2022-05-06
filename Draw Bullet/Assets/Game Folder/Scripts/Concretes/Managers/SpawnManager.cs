@@ -35,7 +35,7 @@ namespace Game_Folder.Scripts.Concretes.Managers
         {
             for (int i = 0; i < numOfTotalObjects; i++)
             {
-                var newObject =  Instantiate(spawnObjectPrefab, transform);
+                var newObject =  Instantiate(spawnObjectPrefab, instantPoint);
                 instantObjects.Add(newObject);
                 instantObjects[i].SetActive(false);
             }
@@ -50,7 +50,7 @@ namespace Game_Folder.Scripts.Concretes.Managers
                 if (_currentNumOfObject < instantObjects.Count &&_currentNumOfObject <= GameManager.Instance.bulletCount && _drawingController.isBulletSpawning)
                 {
                     instantObjects[_currentNumOfObject].SetActive(true);
-                    instantObjects[_currentNumOfObject].transform.position = _drawingController.points.First();
+                    instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
                     _currentNumOfObject++;
                 }
                 else
