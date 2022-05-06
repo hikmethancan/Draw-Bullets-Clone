@@ -37,6 +37,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             {
                 return false;
             }
+            
 
             if (_navMeshAgent.hasPath == false || _navMeshAgent.remainingDistance < 0.5f)
             {

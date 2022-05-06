@@ -36,7 +36,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
             if (_touch.phase == TouchPhase.Moved )
             {
-                var ray = Camera.main.ScreenPointToRay(_touch.position);
+                var ray = _camera.ScreenPointToRay(_touch.position);
                 RaycastHit hitInfo;
                 if (Physics.Raycast(ray,out hitInfo))
                 {

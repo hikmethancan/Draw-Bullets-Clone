@@ -3,54 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class SpawnManager : MonoBehaviour
+namespace Game_Folder.Scripts.Concretes.Managers
 {
-    public int numOfTotalObjects = 0;
-    [FormerlySerializedAs("InstantObjects")] public List<GameObject> instantObjects = new List<GameObject>() ;
-    [FormerlySerializedAs("SpawnObjectPrefab")] public GameObject spawnObjectPrefab;
-    [FormerlySerializedAs("InstantPoint")] public Transform instantPoint;
-
-    private int _currentNumOfObject;
-
-    private void Start()
+    public class SpawnManager : MonoBehaviour
     {
-        Debug.Log("Merhaba..");
-        _currentNumOfObject = 0;
-        SpawnStartGame();
-        StartCoroutine(SpawnObject());
-    }
+        public int numOfTotalObjects = 0;
+        [FormerlySerializedAs("InstantObjects")] public List<GameObject> instantObjects = new List<GameObject>() ;
+        [FormerlySerializedAs("SpawnObjectPrefab")] public GameObject spawnObjectPrefab;
+        [FormerlySerializedAs("InstantPoint")] public Transform instantPoint;
 
-    private void SpawnStartGame()
-    {
-        for (int i = 0; i < numOfTotalObjects; i++)
+        private int _currentNumOfObject;
+
+        private void Start()
         {
-            GameObject newObject =  Instantiate(spawnObjectPrefab, transform);
-            instantObjects.Add(newObject);
-            instantObjects[i].SetActive(false);
+            _currentNumOfObject = 0;
+            SpawnStartGame();
+            StartCoroutine(SpawnObject());
         }
-    }
 
-    IEnumerator SpawnObject()
-    {
-        yield return new WaitForSeconds(3f);
-
-        while (instantObjects != null)
+        private void SpawnStartGame()
         {
-            if (_currentNumOfObject < instantObjects.Count)
+            for (int i = 0; i < numOfTotalObjects; i++)
             {
-                Debug.Log("Spawn 1 ba�lad�");
-                instantObjects[_currentNumOfObject].SetActive(true);
-                instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
-                _currentNumOfObject++;
-                Debug.Log("Spawn 1 tane ettik");
+                GameObject newObject =  Instantiate(spawnObjectPrefab, transform);
+                instantObjects.Add(newObject);
+                instantObjects[i].SetActive(false);
             }
-            else
+        }
+
+        IEnumerator SpawnObject()
+        {
+            yield return new WaitForSeconds(3f);
+
+            while (instantObjects != null)
             {
-                _currentNumOfObject = 0;
-                instantObjects[_currentNumOfObject].SetActive(true);
-                instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
+                if (_currentNumOfObject < instantObjects.Count)
+                {
+                    instantObjects[_currentNumOfObject].SetActive(true);
+                    instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
+                    _currentNumOfObject++;
+                }
+                else
+                {
+                    _currentNumOfObject = 0;
+                    instantObjects[_currentNumOfObject].SetActive(true);
+                    instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
+                }
+                yield return new WaitForSeconds(5f);
             }
-            yield return new WaitForSeconds(5f);
         }
     }
 }
