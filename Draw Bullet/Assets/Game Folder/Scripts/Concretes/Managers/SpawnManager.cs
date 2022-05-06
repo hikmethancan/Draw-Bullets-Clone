@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Game_Folder.Scripts.Concretes.Controllers;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,6 +16,13 @@ namespace Game_Folder.Scripts.Concretes.Managers
         [FormerlySerializedAs("InstantPoint")] public Transform instantPoint;
 
         private int _currentNumOfObject;
+        private DrawingController _drawingController;
+
+        private void Awake()
+        {
+            _drawingController = FindObjectOfType<DrawingController>();
+
+        }
 
         private void Start()
         {
@@ -25,7 +35,7 @@ namespace Game_Folder.Scripts.Concretes.Managers
         {
             for (int i = 0; i < numOfTotalObjects; i++)
             {
-                GameObject newObject =  Instantiate(spawnObjectPrefab, transform);
+                var newObject =  Instantiate(spawnObjectPrefab, transform);
                 instantObjects.Add(newObject);
                 instantObjects[i].SetActive(false);
             }
@@ -37,19 +47,21 @@ namespace Game_Folder.Scripts.Concretes.Managers
 
             while (instantObjects != null)
             {
-                if (_currentNumOfObject < instantObjects.Count)
+                if (_currentNumOfObject < instantObjects.Count &&_currentNumOfObject <= GameManager.Instance.bulletCount && _drawingController.isBulletSpawning)
                 {
                     instantObjects[_currentNumOfObject].SetActive(true);
-                    instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
+                    instantObjects[_currentNumOfObject].transform.position = _drawingController.points.First();
                     _currentNumOfObject++;
                 }
                 else
                 {
+                    _drawingController.isBulletSpawning = false;
                     _currentNumOfObject = 0;
-                    instantObjects[_currentNumOfObject].SetActive(true);
+                    instantObjects[_currentNumOfObject].SetActive(false);
+                    Debug.Log("İlk instant pozisyonuna girdik");
                     instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;
                 }
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(.2f);
             }
         }
     }
