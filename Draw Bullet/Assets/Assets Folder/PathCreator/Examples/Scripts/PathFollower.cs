@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game_Folder.Scripts.Concretes.Managers;
+using UnityEngine;
 
 namespace PathCreation.Examples
 {
@@ -11,7 +12,8 @@ namespace PathCreation.Examples
         public float speed = 5;
         float distanceTravelled;
 
-        void Start() {
+        void Start() 
+        {
             if (pathCreator != null)
             {
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
@@ -21,11 +23,15 @@ namespace PathCreation.Examples
 
         void Update()
         {
+            if (!GameManager.Instance.isGameStarted) return;
+            
             if (pathCreator != null)
             {
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
-                transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+                // var newRotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+                // newRotation.y += 180f;
+                // transform.rotation = newRotation ;
             }
         }
 

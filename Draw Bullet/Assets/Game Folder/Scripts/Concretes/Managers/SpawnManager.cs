@@ -43,7 +43,7 @@ namespace Game_Folder.Scripts.Concretes.Managers
 
         IEnumerator SpawnObject()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
 
             while (instantObjects != null)
             {

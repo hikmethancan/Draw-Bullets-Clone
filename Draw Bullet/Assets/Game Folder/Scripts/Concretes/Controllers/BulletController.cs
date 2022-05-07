@@ -50,7 +50,6 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
             if (_navMeshAgent.hasPath == false || _navMeshAgent.remainingDistance < 0.5f)
             {
-                Debug.Log("Hareket haline girdik");
                 return true;
             }
 

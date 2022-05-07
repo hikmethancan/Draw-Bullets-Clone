@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4306201654145370734}
+  - component: {fileID: 8183193789570270308}
   - component: {fileID: 1323373807830731984}
-  - component: {fileID: 1644949747058605863}
+  - component: {fileID: 5780117979746282154}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1323373807830731984
+--- !u!114 &8183193789570270308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,31 +43,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1307183319160662880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d925defc4c9ed947bc0abaaf34774ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 10ebc8e82ce643d49b79b39ef8dcb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!195 &1644949747058605863
-NavMeshAgent:
+--- !u!114 &1323373807830731984
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307183319160662880}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d925defc4c9ed947bc0abaaf34774ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &5780117979746282154
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307183319160662880}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 10
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_Radius: 0.2
+  m_Height: 0.7
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5953745684072900315
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +83,6 @@ GameObject:
   - component: {fileID: 9097470727277331524}
   - component: {fileID: 2338132449191347512}
   - component: {fileID: 7804018469842312154}
-  - component: {fileID: 6806684613193189860}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -149,20 +153,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6806684613193189860
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953745684072900315}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7240929030978891090
 GameObject:
   m_ObjectHideFlags: 0

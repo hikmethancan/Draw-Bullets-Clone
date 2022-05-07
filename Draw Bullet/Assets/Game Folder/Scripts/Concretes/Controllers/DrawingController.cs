@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game_Folder.Scripts.Concretes.Managers;
-using Game_Folder.Scripts.Concretes.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,10 +14,12 @@ namespace Game_Folder.Scripts.Concretes.Controllers
         private Transform bulletPrefab;
 
         public event Action<IEnumerable<Vector3>> OnNewPathCreated = delegate { };
+        public event Action<List<Vector3>> OnNewPosCreated = delegate { };
         public bool isBulletSpawning;
 
         private LineRenderer _lineRenderer;
         [FormerlySerializedAs("_points")] public List<Vector3> points = new List<Vector3>();
+        public List<Vector3> bulletPoints = new List<Vector3>();
         private Touch _touch;
         private Camera _camera;
         [FormerlySerializedAs("_layerMask")] public LayerMask layerMask;
@@ -32,6 +33,8 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
         private void Update()
         {
+            if (!GameManager.Instance.isGameStarted)
+                return;
             if (Input.touchCount <= 0) return;
             _touch = Input.GetTouch(0);
 
@@ -39,6 +42,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             if (_touch.phase == TouchPhase.Began)
             {
                 points.Clear();
+                bulletPoints.Clear();
                 isBulletSpawning = false;
             }
 
@@ -48,20 +52,18 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100f, layerMask))
                 {
-                    Vector3 newPoint = hitInfo.point;
-                    
-                    var playerNewPos = new Vector3(Player.Instance.transform.position.x,
-                        Player.Instance.transform.position.z, Player.Instance.transform.position.y);
-                    
-                    newPoint = hitInfo.point - Player.Instance.transform.position ;
+                    var newPoint = hitInfo.point - Player.Instance.transform.position ;
+                    var bulletPos = newPoint;
+                    bulletPos.y = .5f;
                     
                     // newPoint.z = 0.01f;
-                    newPoint.y = 0.01f;
+                    newPoint.y = -0.01f;
                     (newPoint.y, newPoint.z) = (newPoint.z, newPoint.y);
 
                     if (DistanceToLastPoint(newPoint) > RESOLATION)
                     {
                         points.Add(newPoint);
+                        bulletPoints.Add(bulletPos);
                         _lineRenderer.positionCount = points.Count;
                         _lineRenderer.SetPositions(points.ToArray());
                     }
@@ -71,9 +73,10 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             else if (_touch.phase == TouchPhase.Ended)
             {
                 OnNewPathCreated(points);
+                OnNewPosCreated(bulletPoints);
                 isBulletSpawning = true;
                 // var go = Instantiate(bulletPrefab, points.First(), Quaternion.identity);
-                // StartCoroutine(SpawnBullets());
+                StartCoroutine(SpawnBullets());
             }
         }
 
@@ -92,7 +95,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             for (int i = 0; i < GameManager.Instance.bulletCount; i++)
             {
                 yield return new WaitForSeconds(.3f);
-                var go = Instantiate(bulletPrefab, points.First(), Quaternion.identity);
+                var go = Instantiate(bulletPrefab, Player.Instance.transform.position, Quaternion.identity);
             }
         }
     }
