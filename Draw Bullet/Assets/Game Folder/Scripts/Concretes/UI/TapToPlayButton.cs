@@ -1,19 +1,20 @@
-
 using System;
 using System.Collections;
 using DG.Tweening;
 using Game_Folder.Scripts.Concretes.Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game_Folder.Scripts.Concretes.UI
 {
     public class TapToPlayButton : MonoBehaviour
     {
         [SerializeField] private GameObject tapToPlayObject;
-        
+
         public event Action OnGameStart;
 
-        private bool _isGameStarted = false;
+        public bool IsGameStarted = false;
+
         private void Start()
         {
             StartCoroutine(TapToPlayMovement());
@@ -23,6 +24,7 @@ namespace Game_Folder.Scripts.Concretes.UI
         {
             OnGameStart += HandleGameStart;
         }
+
         private void OnDisable()
         {
             OnGameStart -= HandleGameStart;
@@ -31,7 +33,7 @@ namespace Game_Folder.Scripts.Concretes.UI
         private void HandleGameStart()
         {
             tapToPlayObject.SetActive(false);
-            _isGameStarted = true;
+            IsGameStarted = true;
         }
 
         public void StartGame()
@@ -39,9 +41,10 @@ namespace Game_Folder.Scripts.Concretes.UI
             OnGameStart?.Invoke();
             GameManager.Instance.isGameStarted = true;
         }
+
         private IEnumerator TapToPlayMovement()
         {
-            while (!_isGameStarted)
+            while (!IsGameStarted)
             {
                 tapToPlayObject.transform.DOPunchScale(Vector3.one * .1f, .8f, 3).SetEase(Ease.Linear);
                 yield return new WaitForSeconds(1f);

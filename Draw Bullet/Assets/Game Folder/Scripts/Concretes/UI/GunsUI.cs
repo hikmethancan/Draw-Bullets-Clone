@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using Game_Folder.Scripts.Concretes.Managers;
@@ -6,32 +5,46 @@ using UnityEngine;
 
 namespace Game_Folder.Scripts.Concretes.UI
 {
-    public enum GunType
-    {
-        Revolver = 5,
-        Sniper = 1,
-        ShoutGun = 3
-    }
+    
     public class GunsUI : MonoBehaviour
     {
         private void Start()
         {
-            StartCoroutine(BulletLoader(GunType.Revolver));
+            StartCoroutine(BulletLoader(GameManager.Instance.gunType));
+        }
+
+        private void OnEnable()
+        {
+            GameManager.OnGunChanged += GunChanged;
+        }
+
+
+        private void OnDisable()
+        {
+            GameManager.OnGunChanged -= GunChanged;
+        }
+
+        private void GunChanged()
+        {
+            
+            Player.Instance.Gun.MaxBulletCount = 0;
+            
         }
 
         private IEnumerator BulletLoader(GunType gunType)
         {
-            Debug.Log(GameManager.Instance.bulletCount + "GameManager Bullet Count");
-            Debug.Log((int)gunType + " GuType");
+            Debug.Log(Player.Instance.Gun.MaxBulletCount + "GameManager Bullet Count");
+            Debug.Log((int) gunType + " GuType");
+            gunType = GameManager.Instance.gunType;
             while (true)
             {
-                if (GameManager.Instance.bulletCount  < (int) gunType)
+                if (Player.Instance.Gun.MaxBulletCount < (int) gunType)
                 {
-                    GameManager.Instance.bulletCount++;
-                    Debug.Log("Bullet Count = "+GameManager.Instance.bulletCount);     
+                    Player.Instance.Gun.MaxBulletCount++;
+                    Debug.Log("Bullet Count = " + Player.Instance.Gun.MaxBulletCount);
                 }
                 yield return null;
             }
-        } 
+        }
     }
 }

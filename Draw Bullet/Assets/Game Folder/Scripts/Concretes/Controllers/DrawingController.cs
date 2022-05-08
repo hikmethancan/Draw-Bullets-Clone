@@ -14,8 +14,10 @@ namespace Game_Folder.Scripts.Concretes.Controllers
         private Transform bulletPrefab;
 
         public event Action<IEnumerable<Vector3>> OnNewPathCreated = delegate { };
-        public event Action<List<Vector3>> OnNewPosCreated = delegate { };
+        public static event Action<List<Vector3>> OnNewPosCreated = delegate { };
         public bool isBulletSpawning;
+        public bool IsFiring;
+        public float bulletSpeed;
 
         private LineRenderer _lineRenderer;
         [FormerlySerializedAs("_points")] public List<Vector3> points = new List<Vector3>();
@@ -35,10 +37,15 @@ namespace Game_Folder.Scripts.Concretes.Controllers
         {
             if (!GameManager.Instance.isGameStarted)
                 return;
+            InputControl();
+        }
+
+        private void InputControl()
+        {
             if (Input.touchCount <= 0) return;
             _touch = Input.GetTouch(0);
-
-
+            if(IsFiring) return;
+            
             if (_touch.phase == TouchPhase.Began)
             {
                 points.Clear();
@@ -72,11 +79,14 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             }
             else if (_touch.phase == TouchPhase.Ended)
             {
+                if (!UIManager.Instance.TapToPlayButton.IsGameStarted)
+                    return;
+                isBulletSpawning = true;
                 OnNewPathCreated(points);
                 OnNewPosCreated(bulletPoints);
-                isBulletSpawning = true;
                 // var go = Instantiate(bulletPrefab, points.First(), Quaternion.identity);
-                StartCoroutine(SpawnBullets());
+                // StartCoroutine(SpawnBullets());
+                
             }
         }
 
@@ -92,7 +102,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
         private IEnumerator SpawnBullets()
         {
-            for (int i = 0; i < GameManager.Instance.bulletCount; i++)
+            for (int i = 0; i < Player.Instance.Gun.MaxBulletCount; i++)
             {
                 yield return new WaitForSeconds(.3f);
                 var go = Instantiate(bulletPrefab, Player.Instance.transform.position, Quaternion.identity);

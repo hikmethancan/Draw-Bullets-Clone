@@ -47,7 +47,7 @@ namespace Game_Folder.Scripts.Concretes.Managers
 
             while (instantObjects != null)
             {
-                if (_currentNumOfObject < instantObjects.Count &&_currentNumOfObject <= GameManager.Instance.bulletCount && _drawingController.isBulletSpawning)
+                if (_currentNumOfObject < instantObjects.Count &&_currentNumOfObject <= Player.Instance.Gun.MaxBulletCount && _drawingController.isBulletSpawning)
                 {
                     instantObjects[_currentNumOfObject].SetActive(true);
                     instantObjects[_currentNumOfObject].transform.position = instantPoint.transform.position;

@@ -15,6 +15,10 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.6.11/Samples~/Cinemachine Example Scenes/Shared/Scripts/PlayerMove.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.4/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -66,6 +70,8 @@
       <workItem from="1651782662380" duration="30336000" />
       <workItem from="1651906412508" duration="8980000" />
       <workItem from="1651933969738" duration="10090000" />
+      <workItem from="1651988828594" duration="9924000" />
+      <workItem from="1652008886704" duration="9138000" />
     </task>
     <servers />
   </component>

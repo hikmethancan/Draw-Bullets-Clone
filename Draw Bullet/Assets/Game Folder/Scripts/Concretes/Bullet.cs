@@ -14,77 +14,40 @@ public class Bullet : MonoBehaviour
     public GunType gunType;
     
     private const float Speed = 5f;
-    private DrawingController _drawingController;
+    private DrawingController _drawingController => Player.Instance.DrawingController;
     private List<Vector3> pointList = new List<Vector3>();
     private float _collidedCount;
-    private void Awake()
-    {
-        _drawingController = FindObjectOfType<DrawingController>();
-        _drawingController.OnNewPosCreated += SetNewPos;
-    }
+    private bool _hasFired;
 
-    private void SetNewPos(List<Vector3> obj)
+    public void SetNewPos(List<Vector3> obj)
     {
-        var points = _drawingController.bulletPoints;
-        pointList = points;
-        if(points == null && !_drawingController.isBulletSpawning) return;
-        // while ( transform.localPosition != points.Last())
-        // {
-        //     transform.localPosition = Vector3.Lerp(points.First(), points.Last(), .5f);
-        // }
-        for (int i = 0; i < points.Count - 1; i++)
+        pointList = obj;
+        if (pointList.Count != 0f && _drawingController.isBulletSpawning && !_hasFired)
         {
-            
-            // transform.localPosition = Vector3.Lerp(points[i], points[i + 1], .5f);
-            transform.DOLocalMove(points[i], .5f);
-
+            gameObject.SetActive(true);
+            StartCoroutine(BulletNewPos());
         }
-       
 
-        // foreach (var point in points)
-        // {
-        //     transform.DOLocalMove(point, .5f);
-        // }
-        
     }
-
-    // private void Update()
-    // {
-    //     if (pointList.Count == 0)
-    //         return;
-    //         
-    //     var currentIndex = 0;
-    //     if (Vector3.Distance(pointList[currentIndex],transform.localPosition) < .1f)
-    //     {
-    //         currentIndex++;
-    //         if (currentIndex >= pointList.Count - 1)
-    //         {
-    //             currentIndex = 0;
-    //         }
-    //     }
-    //     transform.localPosition =
-    //         Vector3.MoveTowards(transform.localPosition, pointList[currentIndex], Time.deltaTime * Speed);
-    // }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        var enemyController = other.GetComponent<EnemyController>();
-
-        if (gunType == GunType.Revolver)
+        if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out EnemyController enemyController))
         {
-            if (enemyController == null) return;
-            Debug.Log("Bullet Collide Enemy");
-            other.gameObject.SetActive(false);
-            this.gameObject.SetActive(false);    
-        }
-        else if (gunType == GunType.Sniper)
-        {
-            if(_collidedCount == 3f) return;
-            
-            if (enemyController == null) return;
-            _collidedCount++;
-            other.gameObject.SetActive(false);
+            if (gunType == GunType.Revolver)
+            {
+                other.gameObject.SetActive(false);
+                gameObject.SetActive(false);    
+            }
+            else if (gunType == GunType.Sniper)
+            {
+                _collidedCount++;
+                other.gameObject.SetActive(false);
+                if(_collidedCount <= 2f) return;
+                
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -93,14 +56,38 @@ public class Bullet : MonoBehaviour
     // {
     //     StartCoroutine(Timer());
     // }
-    
 
+    IEnumerator BulletNewPos()
+    {
+        
+        // var points = _drawingController.bulletPoints;
+        // pointList = points;
+        Debug.Log("isbUllet : "+_drawingController.isBulletSpawning);
+        
+       
+        _hasFired = true;
+        for (int i = 0; i < pointList.Count - 1; i++)
+        {
+            Debug.Log("For İÇerisindeyiz");
+            yield return new WaitForSeconds(_drawingController.bulletSpeed);
+            transform.localPosition = pointList[i];
+            // transform.localPosition = Vector3.Lerp(points[i], points[i + 1], .5f);
+        }
+        StartCoroutine(Timer());
+        var direction = (pointList.Last() - pointList[pointList.Count - 2]).normalized;
+        while (gameObject.activeSelf)
+        {
+            yield return new WaitForSeconds(_drawingController.bulletSpeed);
+            transform.localPosition += direction;
+        }
+    }
     IEnumerator Timer()
     {
         Debug.Log("Süre başladı");
         yield return new WaitForSeconds(3f);
         Debug.Log("Süre bitti");
         gameObject.SetActive(false);
+        _hasFired = false;
     }
 
 
