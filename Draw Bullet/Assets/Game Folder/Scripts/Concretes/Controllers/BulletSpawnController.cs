@@ -63,6 +63,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
                         case GunType.Revolver:
                             if (Player.Instance.GunController.CurrentBulletCount < (int)GunType)
                             {
+                                Player.Instance.GunController.MaxBulletCount = (int) GunType;
                                 var go = Instantiate(revolverBulletMovement, transform.position, Quaternion.identity,
                                     transform.parent);
                                 go.gameObject.SetActive(false);
@@ -80,6 +81,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
                         case GunType.Sniper:
                             if (Player.Instance.GunController.CurrentBulletCount < (int)GunType)
                             {
+                                Player.Instance.GunController.MaxBulletCount = (int) GunType;
                                 var go2 = Instantiate(sniperBulletMovement, transform.position, Quaternion.identity,
                                     transform.parent);
                                 go2.gameObject.SetActive(false);
@@ -104,38 +106,5 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             }
         }
         
-        // switch (_gunType)
-        // {
-        //     case GunType.Revolver:
-        //     if (Player.Instance.GunController.CurrentBulletCount < (int)_gunType)
-        //     {
-        //         var go = Instantiate(revolverBulletMovement, transform.position, Quaternion.identity,
-        //             transform.parent);
-        //         go.gameObject.SetActive(false);
-        //         bulletList.Enqueue(go);
-        //         Player.Instance.GunController.CurrentBulletCount++;
-        //     }
-        //     else
-        //     {
-        //         _isWorking = false;
-        //     }
-        //
-        //     break;
-        //     case GunType.Sniper:
-        //     if (Player.Instance.GunController.CurrentBulletCount < (int)_gunType)
-        //     {
-        //         var go2 = Instantiate(sniperBulletMovement, transform.position, Quaternion.identity,
-        //             transform.parent);
-        //         go2.gameObject.SetActive(false);
-        //         bulletList.Enqueue(go2);
-        //         Player.Instance.GunController.CurrentBulletCount++;
-        //     }
-        //     else
-        //     {
-        //         _isWorking = false;
-        //     }
-        //                 
-        //     break;
-        // }
     }
 }

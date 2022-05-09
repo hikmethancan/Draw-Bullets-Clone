@@ -1,7 +1,6 @@
 using System;
 using Game_Folder.Scripts.Abstracts.Utilities;
-using Game_Folder.Scripts.Concretes.UI;
-using UnityEngine;
+
 
 namespace Game_Folder.Scripts.Concretes.Managers
 {
@@ -9,6 +8,7 @@ namespace Game_Folder.Scripts.Concretes.Managers
     {
         public int bulletCount = 0;
         public bool isGameStarted;
+        public bool isGameFinished;
         public GunType gunType;
 
         public static event Action OnGunChanged;
@@ -24,5 +24,21 @@ namespace Game_Folder.Scripts.Concretes.Managers
         {
             OnGunChanged?.Invoke();
         }
+
+        public void GameOver()
+        {
+            if(isGameFinished) return;
+            isGameStarted = false;
+            UIManager.Instance.gameOverPanel.SetActive(true);
+        }
+
+        public void GameFinished()
+        {
+            isGameFinished = true;
+            isGameStarted = false;
+            UIManager.Instance.winPanel.SetActive(true);
+        }
+
+
     }
 }

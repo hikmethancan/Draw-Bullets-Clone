@@ -15,6 +15,9 @@ public class GunChanger : MonoBehaviour
       GameManager.Instance.GunChanged();
       Player.Instance.GunController.MaxBulletCount = (int) gunType;
       Debug.Log("MaxBullet Değişti : "+Player.Instance.GunController.MaxBulletCount);
+      UIManager.Instance.BulletFillBar.SetMaxText(Player.Instance.GunController.MaxBulletCount);
       UIManager.Instance.BulletFillBar.FillBulletImage(.1f);
+      UIManager.Instance.SetGunTypeText();
+      UIManager.Instance.GunChangedTextWarning();
    }
 }

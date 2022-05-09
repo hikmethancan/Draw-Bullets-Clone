@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.isGameStarted) return;
+        if (!GameManager.Instance.isGameStarted || GameManager.Instance.isGameFinished) return;
         _navMeshAgent.SetDestination(Player.Instance.transform.position);
     }
 
@@ -26,7 +26,6 @@ public class EnemyController : MonoBehaviour
        
         if(player == null) return;
 
-        GameManager.Instance.isGameStarted = false;
-        Debug.Log("Game Over!!!!!!!!");
+        GameManager.Instance.GameOver();
     }
 }

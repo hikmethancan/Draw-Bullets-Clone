@@ -1,4 +1,3 @@
-using System;
 using Game_Folder.Scripts.Concretes.Managers;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             
             if(player == null) return;
             Debug.Log("WİNNNNNN");
-            GameManager.Instance.isGameStarted = false;
+            GameManager.Instance.GameFinished();
         }
     }
 }

@@ -16,8 +16,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             _bulletMovement.KillDuration = killDuration;
         }
 
-
-
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.attachedRigidbody && other.attachedRigidbody.TryGetComponent(out EnemyController enemyController))

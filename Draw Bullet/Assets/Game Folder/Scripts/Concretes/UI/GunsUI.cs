@@ -8,9 +8,10 @@ namespace Game_Folder.Scripts.Concretes.UI
     
     public class GunsUI : MonoBehaviour
     {
+        private GunType _gunType;
         private void Start()
         {
-            StartCoroutine(BulletLoader(GameManager.Instance.gunType));
+            StartCoroutine(BulletLoader());
         }
 
         private void OnEnable()
@@ -31,17 +32,14 @@ namespace Game_Folder.Scripts.Concretes.UI
             
         }
 
-        private IEnumerator BulletLoader(GunType gunType)
+        private IEnumerator BulletLoader()
         {
-            Debug.Log(Player.Instance.GunController.MaxBulletCount + "GameManager Bullet Count");
-            Debug.Log((int) gunType + " GuType");
-            gunType = GameManager.Instance.gunType;
+            _gunType = GameManager.Instance.gunType;
             while (true)
             {
-                if (Player.Instance.GunController.MaxBulletCount < (int) gunType)
+                if (Player.Instance.GunController.MaxBulletCount < (int) _gunType)
                 {
                     Player.Instance.GunController.MaxBulletCount++;
-                    Debug.Log("Bullet Count = " + Player.Instance.GunController.MaxBulletCount);
                 }
                 yield return null;
             }
