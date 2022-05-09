@@ -18,7 +18,6 @@ namespace Game_Folder.Scripts.Concretes.Managers
         {
             SingletonObject(this);
             gunType = GunType.Revolver;
-            Debug.Log(bulletCount + "bullet count");
         }
 
         public void GunChanged()

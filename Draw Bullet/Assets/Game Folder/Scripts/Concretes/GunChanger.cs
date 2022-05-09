@@ -1,6 +1,5 @@
 
 using Game_Folder.Scripts.Concretes.Managers;
-using Game_Folder.Scripts.Concretes.UI;
 using UnityEngine;
 
 public class GunChanger : MonoBehaviour
@@ -14,6 +13,8 @@ public class GunChanger : MonoBehaviour
       if(player == null) return;
       GameManager.Instance.gunType = gunType;
       GameManager.Instance.GunChanged();
-      Debug.Log("Yeni guntype = "+GameManager.Instance.gunType);
+      Player.Instance.GunController.MaxBulletCount = (int) gunType;
+      Debug.Log("MaxBullet Değişti : "+Player.Instance.GunController.MaxBulletCount);
+      UIManager.Instance.BulletFillBar.FillBulletImage(.1f);
    }
 }

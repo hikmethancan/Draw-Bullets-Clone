@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4306201654145370734}
+  - component: {fileID: 5652918613570733336}
   - component: {fileID: 8183193789570270308}
-  - component: {fileID: 1323373807830731984}
   - component: {fileID: 5780117979746282154}
   - component: {fileID: 4777431216600275074}
   m_Layer: 0
@@ -35,6 +35,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5652918613570733336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307183319160662880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b3a3ac189101c41b88822c2dda9681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBulletCount: 0
+  speed: 0.02
+  killDuration: 3
+  fireRate: 0
+  spawnRate: 0.4
+  explosionParticle: {fileID: 4952797708241938664, guid: a06f868ee826c42479a0175c71e3db35, type: 3}
 --- !u!114 &8183193789570270308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,18 +66,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: 5
---- !u!114 &1323373807830731984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1307183319160662880}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d925defc4c9ed947bc0abaaf34774ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &5780117979746282154
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -149,7 +155,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d7b6fdcdf8228194ab5bae9c994e84a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -3,7 +3,6 @@ using System.Collections;
 using DG.Tweening;
 using Game_Folder.Scripts.Concretes.Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game_Folder.Scripts.Concretes.UI
 {

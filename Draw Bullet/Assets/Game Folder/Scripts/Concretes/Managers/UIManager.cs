@@ -1,16 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using Game_Folder.Scripts.Abstracts.Utilities;
 using Game_Folder.Scripts.Concretes.UI;
-using UnityEngine;
 
 public class UIManager : SingletonObjects<UIManager>
 {
-    public TapToPlayButton TapToPlayButton;
+    public TapToPlayButton TapToPlayButton { get; private set; }
+    public BulletFillBar BulletFillBar { get; private set; }
     private void Awake()
     {
         SingletonObject(this);
+        BulletFillBar = GetComponent<BulletFillBar>();
         TapToPlayButton = GetComponentInChildren<TapToPlayButton>();
     }
 }

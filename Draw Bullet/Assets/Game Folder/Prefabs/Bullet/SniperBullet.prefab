@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6723182509378062581}
+  - component: {fileID: 3929147687249773652}
+  - component: {fileID: 9060714422322763421}
   - component: {fileID: 8368888165079114721}
   - component: {fileID: 1524625550754423404}
   - component: {fileID: 493782750863827482}
-  - component: {fileID: 9060714422322763421}
   - component: {fileID: 7844002345087562558}
   m_Layer: 0
   m_Name: SniperBullet
@@ -35,6 +36,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3929147687249773652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127220874305351903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ff11c8ea57f1a4fbb2b06c1aed2e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBulletCount: 0
+  speed: 0.02
+  killDuration: 5
+  fireRate: 0
+  spawnRate: 2
+  explosionParticle: {fileID: 4952797708241938664, guid: a06f868ee826c42479a0175c71e3db35, type: 3}
+  collidedCount: 0
+--- !u!114 &9060714422322763421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127220874305351903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ebc8e82ce643d49b79b39ef8dcb8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunType: 1
 --- !u!33 &8368888165079114721
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -62,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: aca645e28400dad458f76fb6e707c270, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,19 +130,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9060714422322763421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5127220874305351903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10ebc8e82ce643d49b79b39ef8dcb8a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunType: 1
 --- !u!54 &7844002345087562558
 Rigidbody:
   m_ObjectHideFlags: 0

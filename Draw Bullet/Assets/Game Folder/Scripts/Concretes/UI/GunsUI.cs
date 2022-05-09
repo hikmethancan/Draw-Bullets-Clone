@@ -27,21 +27,21 @@ namespace Game_Folder.Scripts.Concretes.UI
         private void GunChanged()
         {
             
-            Player.Instance.Gun.MaxBulletCount = 0;
+            Player.Instance.GunController.MaxBulletCount = 0;
             
         }
 
         private IEnumerator BulletLoader(GunType gunType)
         {
-            Debug.Log(Player.Instance.Gun.MaxBulletCount + "GameManager Bullet Count");
+            Debug.Log(Player.Instance.GunController.MaxBulletCount + "GameManager Bullet Count");
             Debug.Log((int) gunType + " GuType");
             gunType = GameManager.Instance.gunType;
             while (true)
             {
-                if (Player.Instance.Gun.MaxBulletCount < (int) gunType)
+                if (Player.Instance.GunController.MaxBulletCount < (int) gunType)
                 {
-                    Player.Instance.Gun.MaxBulletCount++;
-                    Debug.Log("Bullet Count = " + Player.Instance.Gun.MaxBulletCount);
+                    Player.Instance.GunController.MaxBulletCount++;
+                    Debug.Log("Bullet Count = " + Player.Instance.GunController.MaxBulletCount);
                 }
                 yield return null;
             }

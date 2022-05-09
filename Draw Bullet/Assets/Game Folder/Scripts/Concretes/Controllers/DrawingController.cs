@@ -84,9 +84,8 @@ namespace Game_Folder.Scripts.Concretes.Controllers
                 isBulletSpawning = true;
                 OnNewPathCreated(points);
                 OnNewPosCreated(bulletPoints);
-                // var go = Instantiate(bulletPrefab, points.First(), Quaternion.identity);
-                // StartCoroutine(SpawnBullets());
-                
+                Player.Instance.GunController.CurrentBulletCount = 0;
+                UIManager.Instance.BulletFillBar.FillBulletImage(.1f);
             }
         }
 
@@ -100,13 +99,5 @@ namespace Game_Folder.Scripts.Concretes.Controllers
             return Vector3.Distance(points.Last(), point);
         }
 
-        private IEnumerator SpawnBullets()
-        {
-            for (int i = 0; i < Player.Instance.Gun.MaxBulletCount; i++)
-            {
-                yield return new WaitForSeconds(.3f);
-                var go = Instantiate(bulletPrefab, Player.Instance.transform.position, Quaternion.identity);
-            }
-        }
     }
 }
