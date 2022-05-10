@@ -2564,6 +2564,14 @@ PrefabInstance:
       propertyPath: revolverBulletMovement
       value: 
       objectReference: {fileID: 8183193789570270308, guid: 209d665bb4e4bd8448fbe34a5e974087, type: 3}
+    - target: {fileID: 1136904057, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136904057, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 73c9da3b2299700419c916ca0e44efc5, type: 2}
     - target: {fileID: 7282452040612086018, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2611,6 +2619,14 @@ PrefabInstance:
     - target: {fileID: 7282452040612086019, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821988850897109211, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}
+      propertyPath: m_Parameters.numCapVertices
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821988850897109211, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}
+      propertyPath: m_Parameters.numCornerVertices
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786433edb9864c940a95f4a6e0455acc, type: 3}

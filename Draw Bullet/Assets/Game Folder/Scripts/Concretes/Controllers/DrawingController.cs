@@ -24,6 +24,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
         private Touch _touch;
         private Camera _camera;
         [FormerlySerializedAs("_layerMask")] public LayerMask layerMask;
+        private bool _isInDrawArea;
         
          const float RESOLATION = .5f;
         private void Awake()
@@ -58,6 +59,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 100f, layerMask))
                 {
+                    _isInDrawArea = true;
                     var newPoint = hitInfo.point - Player.Instance.transform.position ;
                     var bulletPos = newPoint;
                     bulletPos.y = .5f;
@@ -73,7 +75,10 @@ namespace Game_Folder.Scripts.Concretes.Controllers
                         _lineRenderer.positionCount = points.Count;
                         _lineRenderer.SetPositions(points.ToArray());
                     }
-                    
+                }
+                else
+                {
+                    _isInDrawArea = false;
                 }
             }
             else if (_touch.phase == TouchPhase.Ended)
@@ -83,6 +88,7 @@ namespace Game_Folder.Scripts.Concretes.Controllers
                 isBulletSpawning = true;
                 OnNewPathCreated(points);
                 OnNewPosCreated(bulletPoints);
+                if(!_isInDrawArea) return;
                 Player.Instance.GunController.CurrentBulletCount = 0;
                 UIManager.Instance.BulletFillBar.FillBulletImage(.1f);
             }
